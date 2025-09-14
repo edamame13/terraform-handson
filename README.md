@@ -21,7 +21,7 @@ Currently, the resource definitions are commented out for reference.
 export AWS_ACCESS_KEY_ID=your_access_key
 export AWS_SECRET_ACCESS_KEY=your_secret_key
 
-Option 2: AWS CLI credentials file
+### Option 2: AWS CLI credentials file
 
 Located at ~/.aws/credentials
 
