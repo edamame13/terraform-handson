@@ -1,7 +1,3 @@
-
-⸻
-
-
 # Terraform Hands-on
 
 This repository contains Terraform code to provision infrastructure on AWS.  
@@ -29,6 +25,7 @@ It demonstrates how to modularize resources, switch between **dev** and **prod**
 
 ## Directory structure (example)
 
+```
 Terraform/
 ├── Handson/
 │   ├── modules/
@@ -38,6 +35,7 @@ Terraform/
 │   │   │   ├── dev/          # Development environment
 │   │   │   └── prod/         # Production environment
 │   └── vpc-subnet/           # VPC/Subnet definitions
+```
 
 ---
 
