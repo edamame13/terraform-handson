@@ -1,55 +1,81 @@
-# Terraform VPC/Subnet Example
-
-This repository contains a simple Terraform configuration for creating basic AWS networking resources.  
-The example is intended for learning and hands-on practice with Terraform.
-
-## Contents
-- `main.tf`  
-  Defines the AWS provider and sample resources:
-  - VPC (`aws_vpc`)
-  - Subnet (`aws_subnet`)
-
-Currently, the resource definitions are commented out for reference.
-
-## Prerequisites
-- [Terraform](https://www.terraform.io/downloads.html) installed (v1.5+ recommended)  
-- An AWS account  
-- AWS credentials configured via one of the following:
-
-### Option 1: Environment variables
-```bash
-export AWS_ACCESS_KEY_ID=your_access_key
-export AWS_SECRET_ACCESS_KEY=your_secret_key
-
-### Option 2: AWS CLI credentials file
-
-Located at ~/.aws/credentials
-
-Usage
-
-1. Initialize Terraform
-
-terraform init
-
-2. Review the execution plan
-
-terraform plan
-
-3. Apply the configuration
-
-terraform apply
-
-4. Destroy the resources
-
-terraform destroy
-
-Notes
-	•	Do not commit any .tfstate or credential files.
-	•	The .gitignore in this repo ensures that local state and temporary files are excluded.
-	•	.terraform.lock.hcl is safe to commit and helps ensure consistent provider versions.
 
 ⸻
 
-Happy Terraforming! 🚀
+
+# Terraform Hands-on
+
+This repository contains Terraform code to provision infrastructure on AWS.  
+It demonstrates how to modularize resources, switch between **dev** and **prod** environments, and build a VPC with an EC2 web server.
+
+---
+
+## What was implemented
+
+- **Module creation**
+  - Built reusable Terraform modules
+  - Enabled environment switching between `dev` and `prod` using variable files (`terraform.tfvars`)
+
+- **EC2 Web server**
+  - Provisioned an EC2 instance (Amazon Linux 2023)
+  - Installed and enabled **Nginx** automatically via `user_data`
+  - Configured a Security Group to allow HTTP (port 80) access from the specified `myip`
+
+- **VPC setup**
+  - Created a VPC (`10.0.0.0/16`)
+  - Created a Public Subnet (`10.0.0.0/24`)
+  - Attached an Internet Gateway and configured a Route Table for internet access
+
+---
+
+## Directory structure (example)
+
+Terraform/
+├── Handson/
+│   ├── modules/
+│   │   └── web/              # Web server module
+│   ├── module-output/
+│   │   ├── env/
+│   │   │   ├── dev/          # Development environment
+│   │   │   └── prod/         # Production environment
+│   └── vpc-subnet/           # VPC/Subnet definitions
+
+---
+
+## Usage
+
+1.Move to the environment directory:  
+   ```
+   cd module-output/env/dev
+   ```
+
+2.Initialize Terraform:
+
+```
+terraform init
+```
+
+
+3.Preview the execution plan:
+
+```
+terraform plan
+```
+
+
+4.Apply the configuration:
+
+```
+terraform apply -var-file=terraform.tfvars
+```
+
+
+⸻
+
+Notes
+	•	terraform.tfvars contains sensitive data (e.g., IP addresses). It is recommended not to commit it to GitHub.
+	•	To exclude variable files from version control, add the following to .gitignore:
+
+*.tfvars
+*.tfvars.json
 
 ---
